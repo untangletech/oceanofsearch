@@ -60,28 +60,32 @@
 	    <version>2.0</version>
 	    <scope>provided</scope>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.apache.jackrabbit/jackrabbit-jcr-commons -->
-	<dependency>
-	    <groupId>org.apache.jackrabbit</groupId>
-	    <artifactId>jackrabbit-jcr-commons</artifactId>
-	    <version>2.4.4</version>
-	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.apache.jackrabbit/jackrabbit-standalone -->
-	<dependency>
-	    <groupId>org.apache.jackrabbit</groupId>
-	    <artifactId>jackrabbit-standalone</artifactId>
-	    <version>1.5.0</version>
-	    <scope>test</scope>
-	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.apache.sling/org.apache.sling.api -->
-	<dependency>
-	    <groupId>org.apache.sling</groupId>
-	    <artifactId>org.apache.sling.api</artifactId>
-	    <version>2.18.2</version>
-	    <scope>provided</scope>
-	</dependency>
-		
+<dependency>
+    <groupId>com.sample</groupId>
+    <artifactId>sample</artifactId>
+    <version>1.0</version>
+    <scope>system</scope>
+    <systemPath>${project.basedir}/src/main/resources/jackrabbit-standalone-2.8.0.jar</systemPath>
+</dependency>
   </dependencies>
+
+
+    <repositories>
+        <repository>
+            <id>adobe</id>
+            <name>Adobe Public Repository</name>
+            <url>http://repo.adobe.com/nexus/content/groups/public/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>adobe</id>
+            <name>Adobe Public Repository</name>
+            <url>http://repo.adobe.com/nexus/content/groups/public/</url>
+            <layout>default</layout>
+        </pluginRepository>
+    </pluginRepositories> 
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
