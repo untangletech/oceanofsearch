@@ -35,6 +35,7 @@ public class AemPageUtility {
 		StringBuilder pageContent = new StringBuilder();
 		Node pageJcrContentNode = pageNode.getNode("jcr:content");
 		getContent(pageJcrContentNode, pageContent);
+		System.out.println("Page Content : "+pageContent.toString());
 		return pageContent.toString();
 	}
 

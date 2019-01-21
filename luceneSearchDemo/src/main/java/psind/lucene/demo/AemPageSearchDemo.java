@@ -12,13 +12,14 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 import psind.lucene.utility.Constant;
+import psind.lucene.utility.IndexingUtility;
 
 public class AemPageSearchDemo {
 
 	public static void main(String[] args) {
-		//IndexingUtility.createAemPagesIndex("/content/we-retail/ca/en/men", Constant.INDEX_DIRECTORY);
+		IndexingUtility.createAemPagesIndex("/content/we-retail/us/en", Constant.INDEX_DIRECTORY);
 		try {
-			Search("ModelService");
+			Search("Pipeline");
 		} catch (Exception e) {
 			System.out.println("Exception : "+e.getMessage());
 		}
@@ -28,10 +29,10 @@ public class AemPageSearchDemo {
 		Directory iDirectory = FSDirectory.open(new File(Constant.INDEX_DIRECTORY).toPath());
 		DirectoryReader directoryReader = DirectoryReader.open(iDirectory);
 		IndexSearcher iSearcher = new IndexSearcher(directoryReader);
-		Query query = new QueryParser(Constant.CONTENTS, new StandardAnalyzer()).parse(fullTextSearchText);
+		Query query = new QueryParser("Content", new StandardAnalyzer()).parse(fullTextSearchText);
 		ScoreDoc[] hits = iSearcher.search(query, 30).scoreDocs;
 		for (ScoreDoc hit : hits) {
-			System.out.println("Hit : " + iSearcher.doc(hit.doc).get(Constant.FILE_PATH));
+			System.out.println("Hit : " + iSearcher.doc(hit.doc).get("PagePath"));
 		}
 		iDirectory.close();
 		directoryReader.close();

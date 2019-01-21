@@ -9,6 +9,7 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
 
+import org.apache.derby.tools.sysinfo;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -59,7 +60,7 @@ public class IndexingUtility {
 			Node rootPageNode = session.getNode(rootPagepath);
 			
 			createAemIndex(iWriter,rootPageNode);			
-			
+			iWriter.close();
 		} catch (Exception e) {
 			System.out.println("Excep : "+e.getMessage());
 		}
@@ -67,7 +68,12 @@ public class IndexingUtility {
 
 	//creating index for page
 	private static void createAemIndex(IndexWriter iWriter, Node rootPageNode) throws RepositoryException {
-		System.out.println("page indexed : " + rootPageNode.getPath());
+		try {
+			iWriter.addDocument(DocumentsUtility.getDocFromAemPage(rootPageNode));
+			System.out.println("page indexed : " + rootPageNode.getPath());
+		} catch (Exception e) {
+			System.out.println("Exception in " + e.getMessage());
+		}
 		NodeIterator nodeItr = rootPageNode.getNodes();
 		while (nodeItr.hasNext()) {
 			Node childNode = nodeItr.nextNode();
