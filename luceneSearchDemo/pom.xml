@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <lucene.version>7.0.1</lucene.version>
   </properties>
 
@@ -60,13 +60,23 @@
 	    <version>2.0</version>
 	    <scope>provided</scope>
 	</dependency>
-<dependency>
-    <groupId>com.sample</groupId>
-    <artifactId>sample</artifactId>
-    <version>1.0</version>
-    <scope>system</scope>
-    <systemPath>${project.basedir}/src/main/resources/jackrabbit-standalone-2.8.0.jar</systemPath>
-</dependency>
+
+	<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+	<dependency>
+	    <groupId>org.testng</groupId>
+	    <artifactId>testng</artifactId>
+	    <version>6.14.3</version>
+	    <scope>test</scope>
+	</dependency>
+
+	<dependency>
+	    <groupId>com.sample</groupId>
+	    <artifactId>sample</artifactId>
+	    <version>1.0</version>
+	    <scope>system</scope>
+	    <systemPath>${project.basedir}/src/main/resources/jackrabbit-standalone-2.8.0.jar</systemPath>
+	</dependency>
+
   </dependencies>
 
 
@@ -88,6 +98,15 @@
     </pluginRepositories> 
 
   <build>
+    <resources>
+        <resource>
+            <directory>${project.basedir}/src/main/resources/</directory>
+            <targetPath>${project.build.directory}</targetPath>
+            <includes>
+                <include>*.properties</include>
+            </includes>
+        </resource>
+    </resources>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
@@ -122,4 +141,5 @@
       </plugins>
     </pluginManagement>
   </build>
+  
 </project>

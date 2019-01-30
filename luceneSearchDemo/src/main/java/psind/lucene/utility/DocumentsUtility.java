@@ -14,8 +14,7 @@ import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.document.TextField;
 
 public class DocumentsUtility {
-	
-	
+		
 	public DocumentsUtility() {
 		
 	}

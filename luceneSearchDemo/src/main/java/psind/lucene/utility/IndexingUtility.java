@@ -12,6 +12,7 @@ import javax.jcr.SimpleCredentials;
 import org.apache.derby.tools.sysinfo;
 import org.apache.jackrabbit.commons.JcrUtils;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.core.KeywordAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
@@ -20,15 +21,9 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
 public class IndexingUtility {
-	
-	public void Indexer(Analyzer analyzer, Directory directory) throws Exception {
-		analyzer = new StandardAnalyzer();
-		directory = FSDirectory.open(new File("/prabhat/luceneDemoDir").toPath());
-		IndexWriterConfig config = new IndexWriterConfig(analyzer);
-	    IndexWriter iwriter = new IndexWriter(directory, config);
-	    iwriter.close();
-	}
-	
+
+	private static Analyzer analyzer = new StandardAnalyzer();
+		
 	//Indexing Files of given directory
 	public static void createFilesIndex() throws Exception {
 		createFilesIndex(Constant.SEARCH_DIRECTORY,Constant.INDEX_DIRECTORY);
@@ -38,7 +33,7 @@ public class IndexingUtility {
 	public static void createFilesIndex(String searchDir, String indexDir) throws Exception {
 		File[] files = new File(searchDir).listFiles();
 		Directory directory = FSDirectory.open(new File(indexDir).toPath());
-		IndexWriterConfig iWriterConfig = new IndexWriterConfig(new StandardAnalyzer());
+		IndexWriterConfig iWriterConfig = new IndexWriterConfig(analyzer);
 		IndexWriter iWriter = new IndexWriter(directory, iWriterConfig);
 		for (File file : files) {
 			Document document = DocumentsUtility.getDocFromFile(file);
@@ -52,7 +47,7 @@ public class IndexingUtility {
 	public static void createAemPagesIndex(String rootPagepath, String indexDir) {
 		try {
 			Directory directory = FSDirectory.open(new File(indexDir).toPath());
-			IndexWriterConfig iWriterConfig = new IndexWriterConfig(new StandardAnalyzer());
+			IndexWriterConfig iWriterConfig = new IndexWriterConfig(analyzer);
 			IndexWriter iWriter = new IndexWriter(directory, iWriterConfig);
 			
 			Repository repository = JcrUtils.getRepository("http://127.0.0.1:4502/crx/server");

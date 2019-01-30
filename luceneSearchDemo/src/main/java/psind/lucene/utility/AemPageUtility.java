@@ -1,5 +1,6 @@
 package psind.lucene.utility;
 
+import java.io.File;
 import java.util.Arrays;
 
 import javax.jcr.Node;
@@ -10,7 +11,20 @@ import javax.jcr.PropertyIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Value;
 
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class AemPageUtility {
+
+	static Logger logger = LoggerFactory.getLogger(AemPageUtility.class);
 
 	static String[] ignoreProperties = {"cq:lastModified","cq:lastModifiedBy","cq:lastRolledout","cq:lastRolledoutBy", "cq:template", "jcr:created", "jcr:createdBy", "jcr:mixinTypes", "jcr:primaryType" ,"sling:resourceType", "jcr:lastModifiedBy","jcr:lastModified"};
 	static String[] indexProperties = {"","",""};
@@ -35,7 +49,8 @@ public class AemPageUtility {
 		StringBuilder pageContent = new StringBuilder();
 		Node pageJcrContentNode = pageNode.getNode("jcr:content");
 		getContent(pageJcrContentNode, pageContent);
-		System.out.println("Page Content : "+pageContent.toString());
+		//System.out.println("Page Content : " + pageContent.toString());
+		logger.debug("Page Content : " + pageContent.toString());
 		return pageContent.toString();
 	}
 
@@ -78,5 +93,4 @@ public class AemPageUtility {
 		}
 		return nodeContent.toString();
 	}
-
 }
