@@ -1,0 +1,8 @@
+/target/
+/.settings/
+/.vscode/
+/.classpath
+/.project
+/.jackrabbit.log_IS_UNDEFINED
+/.jetty.log_IS_UNDEFINED
+
